@@ -1,7 +1,10 @@
+import { useSelector } from 'react-redux';
+
 import ProductItem from './ProductItem.tsx';
-import products from '../../dummy-products.ts';
 
 export default function Products() {
+  const products = useSelector((state: CartState) => state.product.products);
+
   return (
     <section className="products">
       <h2>Buy your favorite products</h2>

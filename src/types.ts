@@ -5,6 +5,12 @@ export interface ItemType {
   price: number;
 }
 
+export interface CartState {
+  cart: {
+    isOpen: boolean;
+  };
+}
+
 export interface CartItemProps {
   item: ItemType;
 }
