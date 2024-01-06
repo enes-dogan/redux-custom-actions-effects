@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { toggle } from '../../store/cart-store';
-import { CartState } from './types.ts';
+import { cartActions } from '../../store/cart-store';
+import { CartState } from '../../types.ts';
 
 export default function CartButton() {
   const cartItems = useSelector((state: CartState) => state.cart.cartItems);
@@ -9,7 +9,7 @@ export default function CartButton() {
   const itemAmount = cartItems.length;
 
   function handleOpenCart() {
-    dispatch(toggle());
+    dispatch(cartActions.toggle());
   }
 
   return (

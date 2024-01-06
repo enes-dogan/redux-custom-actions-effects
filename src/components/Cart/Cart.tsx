@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { CartState } from './types.ts';
+import { CartState } from '../../types.ts';
 
 import Card from '../UI/Card.tsx';
 import CartItem from './CartItem.tsx';

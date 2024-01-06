@@ -1,9 +1,17 @@
-import { ProductItemProps } from '../../types.ts';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-store.ts';
+import { ProductType } from '../../types.ts';
 
 import Card from '../UI/Card.tsx';
 
-export default function ProductItem(props: ProductItemProps) {
-  const { title, price, description } = props;
+export default function ProductItem(item: ProductType) {
+  const { title, price, description } = item;
+
+  const dispatch = useDispatch();
+
+  function handleAddCart() {
+    dispatch(cartActions.addItem(item));
+  }
 
   return (
     <li className="product-item">
@@ -14,7 +22,7 @@ export default function ProductItem(props: ProductItemProps) {
         </header>
         <p>{description}</p>
         <div className="product-actions">
-          <button>Add to Cart</button>
+          <button onClick={handleAddCart}>Add to Cart</button>
         </div>
       </Card>
     </li>

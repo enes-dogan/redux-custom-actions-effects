@@ -1,7 +1,21 @@
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../store/cart-store.ts';
+
 import { CartItemProps } from '../../types.ts';
 
 const CartItem = (props: CartItemProps) => {
   const { title, quantity, total, price } = props.item;
+
+  const dispatch = useDispatch();
+
+  function handleIncrement() {
+    dispatch(cartActions.addItem(props.item));
+  }
+
+  function handleDecrement() {
+    dispatch(cartActions.removeItem(props.item));
+  }
+
   return (
     <li className="cart-item">
       <header>
@@ -16,8 +30,8 @@ const CartItem = (props: CartItemProps) => {
           x <span>{quantity}</span>
         </div>
         <div className="cart-actions">
-          <button>-</button>
-          <button>+</button>
+          <button onClick={handleDecrement}>-</button>
+          <button onClick={handleIncrement}>+</button>
         </div>
       </div>
     </li>

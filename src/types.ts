@@ -1,13 +1,28 @@
 export interface ItemType {
+  id: string;
   title: string;
-  quantity: number;
-  total: number;
   price: number;
+  total: number;
+  quantity: number;
+}
+
+export interface ProductType {
+  id: string;
+  title: string;
+  price: number;
+  description: string;
 }
 
 export interface CartState {
   cart: {
     isOpen: boolean;
+    cartItems: ItemType[];
+  };
+}
+
+export interface ProductState {
+  product: {
+    products: ProductType[];
   };
 }
 
@@ -22,10 +37,4 @@ export interface childrenProp {
 export interface CardProps {
   children: React.ReactNode;
   className?: string;
-}
-
-export interface ProductItemProps {
-  title: string;
-  price: number;
-  description: string;
 }
