@@ -4,7 +4,7 @@ const initialState = {
   products: [
     {
       id: 'p0',
-      price: 6,
+      price: 7,
       title: 'Test',
       description: 'This is a first product - amazing!',
     },
@@ -16,13 +16,13 @@ const initialState = {
     },
     {
       id: 'p2',
-      price: 5,
+      price: 8,
       title: 'My Second Book',
       description: 'The second book I ever wrote',
     },
     {
       id: 'p3',
-      price: 5,
+      price: 3,
       title: 'My Third Book',
       description: 'The Third book I ever wrote',
     },

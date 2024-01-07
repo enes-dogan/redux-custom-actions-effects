@@ -30,6 +30,12 @@ export interface CartItemProps {
   item: ItemType;
 }
 
+export interface NotificationProps {
+  status: 'error' | 'success';
+  title: string;
+  message: string;
+}
+
 export interface childrenProp {
   children: React.ReactNode;
 }
