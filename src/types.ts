@@ -13,17 +13,16 @@ export interface ProductType {
   description: string;
 }
 
+export type CartStates = { cart: CartState };
 export interface CartState {
-  cart: {
-    isOpen: boolean;
-    cartItems: ItemType[];
-  };
+  isOpen: boolean;
+  cartItems: ItemType[];
 }
 
+export type ProductStates = { product: ProductState };
 export interface ProductState {
-  product: {
-    products: ProductType[];
-  };
+  products: ProductType[];
+  notification: NotificationProps;
 }
 
 export interface CartItemProps {
@@ -31,7 +30,7 @@ export interface CartItemProps {
 }
 
 export interface NotificationProps {
-  status: 'error' | 'success';
+  status: 'error' | 'success' | 'pending' | '';
   title: string;
   message: string;
 }

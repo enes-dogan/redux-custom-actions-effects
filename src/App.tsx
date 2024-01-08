@@ -1,60 +1,45 @@
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { CartState } from './types.ts';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { sendCartData } from './store/cart-store.ts';
+import { CartStates, ProductStates } from './types.ts';
 
 import Cart from './components/Cart/Cart.tsx';
 import Layout from './components/Layout/Layout.tsx';
 import Products from './components/Shop/Products.tsx';
+import Notification from './components/UI/Notification.tsx';
+
+let isInital = true;
 
 export default function App() {
-  const [notification, setNotification] = useState({
-    status: '',
-    title: '',
-    message: '',
-  });
-  const isOpen = useSelector((state: CartState) => state.cart.isOpen);
-  const cartItems = useSelector((state: CartState) => state.cart.cartItems);
+  const isOpen = useSelector((state: CartStates) => state.cart.isOpen);
+  const cartItems = useSelector((state: CartStates) => state.cart.cartItems);
+  const notification = useSelector(
+    (state: ProductStates) => state.product.notification
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setNotification({
-      status: 'pending',
-      title: 'Sending...',
-      message: 'Sending cart data!',
-    });
-
-    async function sendCartData() {
-      const response = await fetch(
-        'https://redux-async-b4ba6-default-rtdb.europe-west1.firebasedatabase.app/cart.json',
-        {
-          method: 'PUT',
-          body: JSON.stringify(cartItems),
-        }
-      );
-
-      if (!response.ok) {
-        return;
-      }
+    if (isInital) {
+      isInital = false;
+      return;
     }
 
-    setNotification({
-      status: 'success',
-      title: 'Successs!',
-      message: 'Sent cart data successfully.',
-    });
-
-    void sendCartData().catch(() => {
-      setNotification({
-        status: 'error',
-        title: 'Error!',
-        message: 'Sending cart data failed!',
-      });
-    });
-  }, [cartItems]);
+    dispatch(sendCartData(cartItems));
+  }, [cartItems, dispatch]);
 
   return (
-    <Layout>
-      {isOpen && <Cart />}
-      <Products />
-    </Layout>
+    <>
+      {notification.message && (
+        <Notification
+          status={notification.status}
+          title={notification.title}
+          message={notification.message}
+        />
+      )}
+      <Layout>
+        {isOpen && <Cart />}
+        <Products />
+      </Layout>
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ProductState, NotificationProps } from '../types.ts';
 
-const initialState = {
+const initialState: ProductState = {
   products: [
     {
       id: 'p0',
@@ -27,12 +28,25 @@ const initialState = {
       description: 'The Third book I ever wrote',
     },
   ],
+  notification: {
+    message: '',
+    status: '',
+    title: '',
+  },
 };
 
 const productSlice = createSlice({
   name: 'product',
   initialState,
-  reducers: {},
+  reducers: {
+    showNotification: (state, action: { payload: NotificationProps }) => {
+      state.notification = {
+        status: action.payload.status,
+        title: action.payload.title,
+        message: action.payload.message,
+      };
+    },
+  },
 });
 
 export const productActions = productSlice.actions;
