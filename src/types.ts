@@ -17,6 +17,7 @@ export type CartStates = { cart: CartState };
 export interface CartState {
   isOpen: boolean;
   cartItems: ItemType[];
+  changed: boolean;
 }
 
 export type ProductStates = { product: ProductState };
@@ -43,3 +44,8 @@ export interface CardProps {
   children: React.ReactNode;
   className?: string;
 }
+
+export type ActionsDispatchType = (arg0: {
+  payload: ItemType[] | NotificationProps;
+  type: 'product/showNotification' | 'cart/replaceCart';
+}) => void;

@@ -1,10 +1,12 @@
 import { useSelector } from 'react-redux';
-import { ProductState } from '../../types.ts';
+import { ProductStates } from '../../types.ts';
 
 import ProductItem from './ProductItem.tsx';
 
 export default function Products() {
-  const products = useSelector((state: ProductState) => state.product.products);
+  const products = useSelector(
+    (state: ProductStates) => state.product.products
+  );
 
   return (
     <section className="products">

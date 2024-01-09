@@ -1,31 +1,33 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { sendCartData } from './store/cart-store.ts';
+import { sendCartData, fetchCartData } from './store/cart-actions.ts';
 import { CartStates, ProductStates } from './types.ts';
+import { AppDispatch } from './store/index.ts';
 
 import Cart from './components/Cart/Cart.tsx';
 import Layout from './components/Layout/Layout.tsx';
 import Products from './components/Shop/Products.tsx';
 import Notification from './components/UI/Notification.tsx';
 
-let isInital = true;
-
 export default function App() {
   const isOpen = useSelector((state: CartStates) => state.cart.isOpen);
   const cartItems = useSelector((state: CartStates) => state.cart.cartItems);
+  const changed = useSelector((state: CartStates) => state.cart.changed);
+
   const notification = useSelector(
     (state: ProductStates) => state.product.notification
   );
-  const dispatch = useDispatch();
+  const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    if (isInital) {
-      isInital = false;
-      return;
-    }
+    void dispatch(fetchCartData());
+  }, [dispatch]);
 
-    dispatch(sendCartData(cartItems));
-  }, [cartItems, dispatch]);
+  useEffect(() => {
+    if (changed) {
+      void dispatch(sendCartData(cartItems));
+    }
+  }, [cartItems, changed, dispatch]);
 
   return (
     <>

@@ -1,12 +1,15 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { cartActions } from '../../store/cart-store';
-import { CartState } from '../../types.ts';
+import { CartStates } from '../../types.ts';
 
 export default function CartButton() {
-  const cartItems = useSelector((state: CartState) => state.cart.cartItems);
+  const cartItems = useSelector((state: CartStates) => state.cart.cartItems);
   const dispatch = useDispatch();
 
-  const itemAmount = cartItems.length;
+  let itemAmount = 0;
+  if (cartItems) {
+    itemAmount = cartItems.length;
+  }
 
   function handleOpenCart() {
     dispatch(cartActions.toggle());

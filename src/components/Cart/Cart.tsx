@@ -1,11 +1,11 @@
 import { useSelector } from 'react-redux';
-import { CartState } from '../../types.ts';
+import { CartStates } from '../../types.ts';
 
 import Card from '../UI/Card.tsx';
 import CartItem from './CartItem.tsx';
 
 export default function Cart() {
-  const cartItems = useSelector((state: CartState) => state.cart.cartItems);
+  const cartItems = useSelector((state: CartStates) => state.cart.cartItems);
 
   return (
     <Card className="cart">
